@@ -20,7 +20,6 @@
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
-
 <div class="draft">Draft preview · not live</div>
 
 <div class="util"><div class="wrap">
@@ -35,7 +34,7 @@
 <header class="site"><div class="wrap bar">
   <a class="brand" href="index.html">
     <span class="crest"><span>&#937;&#936;&#934;</span></span>
-    <span class="txt"><b>Nu Pi Chapter</b><small>Omega Psi Phi · Since 1974</small></span>
+    <span class="txt"><b>Nu Pi Chapter</b><small>Omega Psi Phi &middot; Since 1974</small></span>
   </a>
   <button class="navtoggle" type="button" aria-label="Open menu" aria-controls="primary-nav" aria-expanded="false"><span aria-hidden="true">&#9776;</span></button>
   <nav class="main" id="primary-nav" aria-label="Primary">
@@ -60,12 +59,36 @@
   <p>Chapter roster, resources, and member access for the brothers of Nu Pi.</p>
 </div></section>
 
+<!-- Login gate: shown when NOT signed in -->
+<section class="login-hero">
+  <div class="wrap">
+    <div class="login-card">
+      <h2>Brother sign-in</h2>
+      <p class="login-sub">Enter your chapter email address to access member resources.</p>
+      <form id="login-form" onsubmit="return false" novalidate>
+        <label for="login-email">Chapter email</label>
+        <input id="login-email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <button class="login-btn" type="submit">Sign in</button>
+        <div id="login-error" class="login-error" role="alert"></div>
+      </form>
+      <p class="login-note"><b>Demo login:</b> this preview whitelists chapter emails from the current roster. Real sign-in with a one-time email code will be configured before public launch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Signed-in gated content -->
+<div class="gated">
 <section class="block"><div class="wrap">
 
-  <!-- Chapter Documents -->
+  <div class="member-header">
+    <div class="signed-in">Signed in as <b id="sess-email"></b><span id="sess-badge"></span></div>
+    <button class="signout" id="signout-btn" type="button">Sign out</button>
+  </div>
+
+  <!-- Chapter Documents (gated) -->
   <div class="kicker-head" style="max-width:820px;margin:0 auto 8px">
     <div class="eyebrow" style="color:#3A1770">Governance</div>
-    <h2 style="color:var(--purple);font-size:28px">Chapter Documents</h2>
+    <h2 style="color:var(--purple);font-size:28px">Chapter Documents <span class="admin-only admin-badge">Admin can add</span></h2>
     <p>The fraternity constitution, chapter by-laws, and other governing documents brothers should be able to reference at any time.</p>
   </div>
   <div class="docs">
@@ -82,7 +105,7 @@
   <!-- Basileus Letter -->
   <div class="kicker-head" style="max-width:820px;margin:48px auto 20px">
     <div class="eyebrow" style="color:#3A1770">From the Basileus</div>
-    <h2 style="color:var(--purple);font-size:28px">Chapter Letter</h2>
+    <h2 style="color:var(--purple);font-size:28px">Chapter Letter <span class="admin-only admin-badge">Admin can edit</span></h2>
   </div>
   <div class="basileus-letter">
     <div class="letter-head">The Challenge (revisited)</div>
@@ -100,7 +123,7 @@
   <!-- Meeting Minutes Archive -->
   <div class="kicker-head" style="max-width:820px;margin:48px auto 8px">
     <div class="eyebrow" style="color:#3A1770">Chapter Business</div>
-    <h2 style="color:var(--purple);font-size:28px">Meeting Minutes Archive</h2>
+    <h2 style="color:var(--purple);font-size:28px">Meeting Minutes Archive <span class="admin-only admin-badge">Admin can add</span></h2>
     <p>Approved chapter meeting minutes month by month. Files will be linked as they are approved and posted by the Keeper of Records and Seal.</p>
   </div>
   <div class="minutes">
@@ -114,15 +137,56 @@
     <div class="month"><b>Jul</b>&#39;22</div>
   </div>
 
-  </div></section>
+  <hr style="border:0;border-top:1px solid var(--line);margin:56px 0 40px">
+
+  <div class="dir-notice"><b>Chapter roster.</b> The full brother directory unlocks with real email OTP sign-in in the next build phase. For the current preview the roster is being kept off the public site.</div>
+
+  <div id="directory-view">
+    <div class="dir-controls">
+      <div>
+        <label for="dir-search">Search</label>
+        <input id="dir-search" type="search" placeholder="Name, city, email, or initiation year" autocomplete="off">
+      </div>
+      <div>
+        <label for="dir-cat">Category</label>
+        <select id="dir-cat">
+          <option value="">All categories</option>
+          <option value="good-standing">Good Standing (Life + Financial)</option>
+          <option value="Financial">Financial</option>
+          <option value="Life Member">Life Member</option>
+          <option value="Non-Financial">Non-Financial 🐱</option>
+        </select>
+      </div>
+      <div>
+        <label for="dir-sort">Sort</label>
+        <select id="dir-sort">
+          <option value="last">Last name (A to Z)</option>
+          <option value="first">First name (A to Z)</option>
+          <option value="init-newest">Newest initiation</option>
+          <option value="init-oldest">Oldest initiation</option>
+        </select>
+      </div>
+    </div>
+    <p class="dir-count">Showing <b><span id="dir-visible">0</span></b> of <b><span id="dir-total">0</span></b> brothers</p>
+    <div id="dir-grid" class="dir-grid" role="list"></div>
+    <div id="dir-empty" class="dir-empty" hidden>No brothers match those filters.</div>
+  </div>
+
+  <div id="profile-view" hidden>
+    <div class="profile" id="profile-content"></div>
+  </div>
+
+</div></section>
+</div><!-- /gated -->
 
 <section class="block tint"><div class="wrap">
   <div class="kicker-head" style="max-width:760px">
     <div class="eyebrow">Inside the Members Area</div>
     <h2>Planned member resources</h2>
-    <p>Features will be listed as available after the chapter confirms and activates them.</p>
+    <p>Features listed here are staged and unlock for signed-in brothers.</p>
   </div>
   <div class="perks">
+    <div class="perk"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C6A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 2h9l5 5v15H5V2Zm9 0v6h5M8 12h8M8 16h8"/></svg></div><b>Chapter By-Laws</b><span>National constitution and Nu Pi&#39;s adopted chapter by-laws, available to signed-in brothers as PDF.</span></div>
     <div class="perk"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C6A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div><b>Dues Information</b><span>Payment instructions will be posted after the chapter confirms its collection method.</span></div>
     <div class="perk"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C6A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 2h9l5 5v15H5V2Zm9 0v6h5M8 12h8M8 16h8"/></svg></div><b>Chapter Documents</b><span>Meeting minutes, the chapter calendar, bylaws, and committee materials in one place.</span></div>
     <div class="perk"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C6A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="9" r="2.5"/><path d="M8 17v-1a4 4 0 0 1 8 0v1M2 7h4M2 12h4M2 17h4"/></svg></div><b>Member Directory</b><span>Search brothers by name, city, category, and initiation year.</span></div>
@@ -130,7 +194,7 @@
     <div class="perk"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C6A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="6" r="3"/><path d="M7 19v-3a5 5 0 0 1 10 0v3M5 5a3 3 0 0 0 0 6M19 5a3 3 0 0 1 0 6M2 19v-3a4 4 0 0 1 3-4M22 19v-3a4 4 0 0 0-3-4"/></svg></div><b>Committees</b><span>Sign up to serve, submit reports, and track program work.</span></div>
     <div class="perk"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C6A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 14h2M13 14h2M7 18h2M13 18h2"/></svg></div><b>RSVP to Events</b><span>Confirm attendance for meetings and affairs, and get a headcount that is actually accurate.</span></div>
   </div>
-  <div class="pnote"><b>Local preview only:</b> the Dues, Chapter Documents, Announcements, Committees, and RSVP tools are staged and require chapter setup before activation.</div>
+  <div class="pnote"><b>Real member login</b> with a one-time email code will replace the current demo gate before the site is opened to brothers.</div>
 </div></section>
 
 </main>
@@ -138,7 +202,7 @@
 <footer class="site"><div class="wrap">
   <div class="top">
     <div class="brand-f">
-      <b>Nu Pi Chapter · &#937;&#936;&#934;</b>
+      <b>Nu Pi Chapter &middot; &#937;&#936;&#934;</b>
       <p>Omega Psi Phi Fraternity, Incorporated. Serving Joliet and beyond through scholarship, service, and brotherhood since 1974.</p>
       <hr class="rule">
     </div>
@@ -155,7 +219,7 @@
       <a href="get-involved.html#interest">Express Interest</a>
       <a href="get-involved.html#give">Giving Information</a>
       <a href="get-involved.html#contact">Contact the Chapter</a>
-      <a href="https://oppf.org" target="_blank" rel="noopener">National · oppf.org</a>
+      <a href="https://oppf.org" target="_blank" rel="noopener">National &middot; oppf.org</a>
       <a href="https://www.10thdomegas.org/">Tenth District</a>
     </nav>
   </div>
@@ -165,36 +229,210 @@
   </div>
 </div></footer>
 
-
+<script type="application/json" id="members-data">[]</script>
+<script type="application/json" id="allowlist-data">
+{"members": ["nittygrittyq@gmail.com", "ecrump@me.com", "nupichapter@gmail.com"], "admins": ["nittygrittyq@gmail.com", "ecrump@me.com", "nupichapter@gmail.com"]}
+</script>
 
 <script>
 (() => {
-  // ----- Mobile nav (same as other pages) -----
+  // ---------- Mobile nav ----------
   const header = document.querySelector('header.site');
   const navEl = header && header.querySelector('nav.main');
-  const button = header && header.querySelector('.navtoggle');
-  if (navEl && button) {
-    const mobile = matchMedia('(max-width:1100px)');
-    function setOpen(open, restoreFocus) {
-      navEl.classList.toggle('is-open', open);
-      button.setAttribute('aria-expanded', String(open));
-      button.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      if (restoreFocus) button.focus();
-    }
-    button.addEventListener('click', () => setOpen(!navEl.classList.contains('is-open')));
-    navEl.addEventListener('click', e => {
-      if (mobile.matches && e.target.closest('a')) setOpen(false);
-    });
-    header.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && mobile.matches && navEl.classList.contains('is-open')) {
-        e.preventDefault();
-        setOpen(false, true);
-      }
-    });
+  const navBtn = header && header.querySelector('.navtoggle');
+  if (navEl && navBtn) {
+    const m = matchMedia('(max-width:1100px)');
+    function set(open, focus){ navEl.classList.toggle('is-open', open); navBtn.setAttribute('aria-expanded', String(open)); navBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); if (focus) navBtn.focus(); }
+    navBtn.addEventListener('click', ()=>set(!navEl.classList.contains('is-open')));
+    navEl.addEventListener('click', e => { if (m.matches && e.target.closest('a')) set(false); });
+    header.addEventListener('keydown', e => { if (e.key==='Escape' && m.matches && navEl.classList.contains('is-open')) { e.preventDefault(); set(false, true); } });
     header.classList.add('nav-ready');
   }
 
-  })();
+  // ---------- Login gate ----------
+  const allow = JSON.parse(document.getElementById('allowlist-data').textContent);
+  const members = new Set(allow.members.map(e => e.toLowerCase()));
+  const admins = new Set(allow.admins.map(e => e.toLowerCase()));
+  const STORAGE_KEY = 'nupi-session-v1';
+
+  const loginForm = document.getElementById('login-form');
+  const loginEmail = document.getElementById('login-email');
+  const loginError = document.getElementById('login-error');
+  const signoutBtn = document.getElementById('signout-btn');
+  const sessEmail = document.getElementById('sess-email');
+  const sessBadge = document.getElementById('sess-badge');
+
+  function showError(msg){ loginError.textContent = msg; loginError.classList.add('visible'); }
+  function clearError(){ loginError.classList.remove('visible'); loginError.textContent=''; }
+
+  function applySession(sess){
+    if (!sess) {
+      document.body.dataset.signedIn = '';
+      document.body.dataset.role = '';
+      return;
+    }
+    document.body.dataset.signedIn = '1';
+    document.body.dataset.role = sess.role;
+    sessEmail.textContent = sess.email;
+    sessBadge.innerHTML = sess.role === 'admin'
+      ? '<span class="badge-admin">Admin</span>'
+      : '<span class="badge-member">Member</span>';
+  }
+
+  function readSession(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e){ return null; }
+  }
+  function writeSession(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+  function clearSession(){ localStorage.removeItem(STORAGE_KEY); }
+
+  loginForm.addEventListener('submit', () => {
+    clearError();
+    const e = (loginEmail.value || '').trim().toLowerCase();
+    if (!e || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) { showError('Enter a valid email address.'); return; }
+    if (!members.has(e) && !admins.has(e)) {
+      showError('That email is not on the current chapter allowlist. Contact the Keeper of Records and Seal to be added.');
+      return;
+    }
+    const role = admins.has(e) ? 'admin' : 'member';
+    const sess = { email: e, role, ts: Date.now() };
+    writeSession(sess);
+    applySession(sess);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  signoutBtn.addEventListener('click', () => {
+    clearSession();
+    applySession(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  applySession(readSession());
+
+  // ---------- Member directory app ----------
+  const roster = JSON.parse(document.getElementById('members-data').textContent);
+  const grid = document.getElementById('dir-grid');
+  const emptyDiv = document.getElementById('dir-empty');
+  const visibleCount = document.getElementById('dir-visible');
+  const totalCount = document.getElementById('dir-total');
+  const searchEl = document.getElementById('dir-search');
+  const catEl = document.getElementById('dir-cat');
+  const sortEl = document.getElementById('dir-sort');
+  const dirView = document.getElementById('directory-view');
+  const profView = document.getElementById('profile-view');
+  const profContent = document.getElementById('profile-content');
+
+  totalCount.textContent = roster.length;
+
+  function catBadge(cat) {
+    if (cat === 'Life Member') return 'life';
+    if (cat === 'Financial') return 'fin';
+    return 'non';
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function initYear(m) {
+    return (m['Initiation Date'] || '').slice(0, 4);
+  }
+
+  function render() {
+    const q = searchEl.value.trim().toLowerCase();
+    const catFilter = catEl.value;
+    const sort = sortEl.value;
+
+    let filtered = roster.map((m, i) => ({ m, i }));
+    if (q) {
+      filtered = filtered.filter(({ m }) => {
+        const hay = [m['First Name'], m['Last Name'], m['Email'], m['City'], m['State'], initYear(m), m['Category'], m['Member Type']].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+    }
+    if (catFilter) {
+      if (catFilter === 'good-standing') {
+        filtered = filtered.filter(({ m }) => m['Category'] === 'Life Member' || m['Category'] === 'Financial');
+      } else {
+        filtered = filtered.filter(({ m }) => m['Category'] === catFilter);
+      }
+    }
+
+    filtered.sort((a, b) => {
+      const A = a.m, B = b.m;
+      if (sort === 'first') return (A['First Name']||'').localeCompare(B['First Name']||'');
+      if (sort === 'init-newest') return (B['Initiation Date']||'').localeCompare(A['Initiation Date']||'');
+      if (sort === 'init-oldest') return (A['Initiation Date']||'').localeCompare(B['Initiation Date']||'');
+      return (A['Last Name']||'').localeCompare(B['Last Name']||'');
+    });
+
+    visibleCount.textContent = filtered.length;
+    emptyDiv.hidden = filtered.length > 0;
+
+    grid.innerHTML = filtered.map(({ m, i }) => {
+      const name = [m['First Name'], m['Last Name'], m['Suffix']].filter(Boolean).map(esc).join(' ');
+      const cityState = [m['City'], m['State']].filter(Boolean).map(esc).join(', ');
+      const iy = initYear(m);
+      const catCls = catBadge(m['Category']);
+      return `<button class="dir-card" role="listitem" data-id="${i}"><b>${name}</b><span class="cat ${catCls}">${esc(m['Category'])}</span><div class="meta-sm">${cityState}${iy ? ' &middot; init. ' + iy : ''}</div></button>`;
+    }).join('');
+  }
+
+  function showProfile(i) {
+    const m = roster[i];
+    if (!m) return;
+    const isAdmin = document.body.dataset.role === 'admin';
+    const name = [m['First Name'], m['Last Name'], m['Suffix']].filter(Boolean).map(esc).join(' ');
+    const addr1 = m['Address 1'] ? esc(m['Address 1']) : '';
+    const addr2 = m['Address 2'] ? '<br>' + esc(m['Address 2']) : '';
+    const cityLine = [m['City'], m['State'], m['Zip']].filter(Boolean).map(esc).join(', ').replace(/, ([A-Z]{2}),/, ', $1 ');
+    const country = m['Country'] ? '<br>' + esc(m['Country']) : '';
+    const address = addr1 ? addr1 + addr2 + '<br>' + cityLine + country : 'No address on file';
+    const rows = [
+      ['Category', esc(m['Category'])],
+      ['Member type', esc(m['Member Type'])],
+      ['Initiated', (esc(m['Initiation Date']) || 'Unknown') + (m['Initiation Chapter'] ? ' at ' + esc(m['Initiation Chapter']) : '')],
+      ['Email', m['Email'] ? `<a href="mailto:${esc(m['Email'])}">${esc(m['Email'])}</a>` : 'Not on file'],
+      ['Mobile', m['Mobile Phone'] ? `<a href="tel:${esc(m['Mobile Phone']).replace(/\s/g,'')}">${esc(m['Mobile Phone'])}</a>` : 'Not on file'],
+      ['Home phone', m['Home Phone'] ? esc(m['Home Phone']) : 'Not on file'],
+      ['Address', address],
+      ['District', esc(m['District']) + ' / ' + esc(m['Chapter'])],
+    ];
+    if (m['Member Number']) rows.push(['Member number', esc(m['Member Number'])]);
+    if (m['Life Member Number']) rows.push(['Life member number', esc(m['Life Member Number'])]);
+
+    const adminEditBtn = isAdmin ? '<button class="edit-btn" onclick="alert(\'Real edit UI coming in the next build phase. For now this is a demo.\')">Edit profile</button>' : '';
+
+    profContent.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap"><button class="back" type="button" aria-label="Back to directory">&larr; Back to directory</button>${adminEditBtn}</div><h2>${name}</h2><div class="subline">${esc(m['Category'])}</div><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+    dirView.hidden = true;
+    profView.hidden = false;
+    profContent.querySelector('.back').addEventListener('click', () => { history.replaceState(null, '', location.pathname); showDirectory(); });
+    window.scrollTo({ top: profView.offsetTop - 80, behavior: 'smooth' });
+  }
+
+  function showDirectory() { profView.hidden = true; dirView.hidden = false; }
+
+  grid.addEventListener('click', e => {
+    const btn = e.target.closest('.dir-card');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    history.replaceState(null, '', '#id=' + id);
+    showProfile(id);
+  });
+
+  searchEl.addEventListener('input', render);
+  catEl.addEventListener('change', render);
+  sortEl.addEventListener('change', render);
+
+  function handleHash() {
+    const m = /^#id=(\d+)$/.exec(location.hash);
+    if (m) showProfile(m[1]);
+    else showDirectory();
+  }
+  window.addEventListener('hashchange', handleHash);
+
+  render();
+  handleHash();
+})();
 </script>
 </body>
 </html>

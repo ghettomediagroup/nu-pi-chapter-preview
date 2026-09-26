@@ -366,6 +366,16 @@ main[id],section[id],.pdetail[id]{scroll-margin-top:140px}
 /* Event date-pending state */
 .event .top .date-pending{font-size:16px;font-weight:700;color:#D8BE72}
 
+/* ========== Social media strip ========== */
+.socials{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:28px 24px 0}
+.socials .label{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-right:8px}
+.socials a{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(198,162,75,.35);display:grid;place-items:center;color:#EDE7F6;transition:background .18s,border-color .18s,transform .18s;text-decoration:none}
+.socials a:hover,.socials a:focus-visible{background:var(--gold);border-color:var(--gold);color:#25064C;transform:translateY(-2px);outline:none}
+.socials a svg{display:block;width:22px;height:22px}
+footer.site .socials{padding:0 0 28px}
+footer.site .socials a{background:rgba(198,162,75,.12);border-color:rgba(198,162,75,.28);color:#EDE7F6}
+footer.site .socials a:hover{background:var(--gold);color:#25064C}
+
 /* ========== Member login gate ========== */
 .login-card{max-width:480px;margin:0 auto;background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:3px;padding:40px 40px 32px;box-shadow:0 24px 60px -40px rgba(37,6,76,.5)}
 .login-card h2{color:var(--purple);font-size:26px;text-align:center;margin-bottom:6px}

@@ -385,7 +385,7 @@ main[id],section[id],.pdetail[id]{scroll-margin-top:140px}
 .line-card li:first-child{border-top:0}
 
 /* ========== Chapter Documents cards (Members page) ========== */
-.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:24px}
+.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:24px;max-width:820px;margin-left:auto;margin-right:auto}
 .doc-card{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:3px;padding:18px 22px;text-decoration:none;color:inherit;transition:transform .18s,box-shadow .18s}
 .doc-card:hover,.doc-card:focus-visible{transform:translateY(-2px);box-shadow:0 18px 32px -22px rgba(37,6,76,.6);outline:none;border-left-color:#D8BE72}
 .doc-card .doc-ic{width:44px;height:44px;border-radius:50%;background:#25064C;display:grid;place-items:center;flex:none}
@@ -401,7 +401,7 @@ main[id],section[id],.pdetail[id]{scroll-margin-top:140px}
 @media(max-width:640px){.basileus-letter{padding:26px 22px}}
 
 /* ========== Meeting minutes archive ========== */
-.minutes{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:24px;max-width:720px}
+.minutes{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin:24px auto 0;max-width:720px}
 .minutes .month{background:#fff;border:1px solid var(--line);border-radius:3px;padding:14px 12px;text-align:center;color:var(--ink-soft);font-size:13.5px;font-weight:700}
 .minutes .month b{display:block;font-family:var(--serif);color:var(--purple);font-size:16px;font-weight:600;margin-bottom:2px}
 

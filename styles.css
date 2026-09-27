@@ -512,7 +512,7 @@ body[data-signed-in="1"] .login-hero{display:none}
 
 /* JCCL giving callout */
 .jccl-callout{display:flex;align-items:center;gap:24px;background:#fff;border:1px solid #E7E1D6;border-left:4px solid var(--purple);border-radius:12px;padding:22px 26px;margin-top:26px;max-width:940px;margin-left:auto;margin-right:auto;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.jccl-callout img{flex:0 0 auto;border-radius:8px}
+.jccl-callout img{flex:0 0 auto}
 .jccl-callout .eyebrow{margin-bottom:4px}
 .jccl-callout h3{font-family:var(--serif);color:var(--purple);font-size:22px;margin:4px 0 8px}
 .jccl-callout p{color:#4b4750;margin:0}
